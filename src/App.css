@@ -30,3 +30,13 @@
     transform: rotate(360deg);
   }
 }
+
+.gameboard {
+  margin: auto;
+	border-collapse: collapse;
+}
+
+.gameboard-tile {
+	padding: 0;
+	line-height: 0px;
+}
