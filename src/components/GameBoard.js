@@ -3,15 +3,45 @@ import { Row } from './Row';
 
 export class GameBoard extends Component {
   render() {
-    const rows = []
-    for (let i=0; i<9; i++) {
-      rows.push(<Row y={i}></Row>)
-    }
+    const stones = this.getRowsFromGroups()
     return (
-      <table className="gameboard">
-        <tr>{ rows }</tr>
-      </table>
+      <div>
+        {
+          stones.map((row, index) => {
+            return <Row key={index} row={row} clickOnTile={this.clickOnTile}/>
+          })
+        }
+      </div>
     )
+  }
+
+  getRowsFromGroups() {
+    const size = 9
+    let rows = [...Array(size)].map(element => Array(size));
+    const groups = this.props.history[this.props.history.length - 1].board
+    // add tiles with stones
+    for (const group of groups) {
+      for (const stone of group) {
+        const x = stone[0][0]
+        const y = stone[0][1]
+        if (rows[y] === undefined) { rows[y] = [] }
+        rows[y][x] = {color: stone[1], x: x, y: y, alive: true}
+      }
+    }
+    // add empty tiles
+    for (let y=0; y<size; y++) {
+      for (let x=0; x<size; x++) {
+        if (rows[x][y] === undefined)
+          rows[x][y] = {color: "empty", x: x, y: y, alive: true}
+      }
+    }
+    console.log(this.props.history[this.props.history.length - 1].board)
+    console.log(rows)
+    return rows
+  }
+
+  clickOnTile = (tile) => {
+    console.log(`Clicked on ${tile.x}, ${tile.y}`)
   }
 }
 
