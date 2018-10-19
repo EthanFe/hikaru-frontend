@@ -18,7 +18,8 @@ export class GameBoard extends Component {
   getRowsFromGroups() {
     const size = 9
     let rows = [...Array(size)].map(element => Array(size));
-    const groups = this.props.history[this.props.history.length - 1].board
+    const groups = this.props.boardState.board
+    // debugger
     // add tiles with stones
     for (const group of groups) {
       for (const stone of group) {
@@ -35,8 +36,6 @@ export class GameBoard extends Component {
           rows[x][y] = {color: "empty", x: x, y: y, alive: true}
       }
     }
-    console.log(this.props.history[this.props.history.length - 1].board)
-    console.log(rows)
     return rows
   }
 

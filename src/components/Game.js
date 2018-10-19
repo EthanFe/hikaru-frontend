@@ -8,6 +8,7 @@ export class Game extends Component {
       console.log("Got full game state up to now")
       console.log(data)
       this.setInitialState(data)
+      this.addKeystrokeListener()
     })
 
     // subscribe to state updates from now on
@@ -21,23 +22,44 @@ export class Game extends Component {
       console.log("Got group aliveness update")
       this.addIncrementalState(data)
     })
+
   }
 
   setInitialState(data) {
-    this.setState(data)
+    this.setState({history: data.history, displayedGame: data.history.length - 1})
   }
   
   render() {
     if (this.state) {
-      const history = this.state.history
+      console.log(this.state)
       return (
         <div>
-          <GameBoard history={history}></GameBoard>
+          <GameBoard boardState={this.state.history[this.state.displayedGame]}></GameBoard>
         </div>
       )
     } else {
       return null
     }
+  }
+
+  addKeystrokeListener = () => {
+    var keyMap = {
+      39: 'right',
+      37: 'left',
+      38: 'up',
+      40: 'down'
+    }
+    
+    const keydown = (event) => {
+      var key = keyMap[event.keyCode]
+      if (key === 'right' && this.state.history.length > this.state.displayedGame + 1) {
+        this.setState({displayedGame: this.state.displayedGame + 1})
+      } else if (key === 'left' && this.state.displayedGame > 0) {
+        this.setState({displayedGame: this.state.displayedGame - 1})
+      }
+    }
+    
+    window.addEventListener("keydown", keydown, false)
   }
 }
 
