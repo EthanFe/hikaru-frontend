@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { GameBoard } from './GameBoard';
+import { HistoryList } from './HistoryList';
 
 export class Game extends Component {
   componentDidMount() {
@@ -35,6 +36,7 @@ export class Game extends Component {
       return (
         <div>
           <GameBoard boardState={this.state.history[this.state.displayedGame]}></GameBoard>
+          <HistoryList boardStates={this.state.history} currentlyDisplayed={this.state.displayedGame}></HistoryList>
         </div>
       )
     } else {

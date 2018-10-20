@@ -5,7 +5,7 @@ export class GameBoard extends Component {
   render() {
     const stones = this.getRowsFromGroups()
     return (
-      <div>
+      <div className="game-board">
         {
           stones.map((row, index) => {
             return <Row key={index} row={row} clickOnTile={this.clickOnTile}/>

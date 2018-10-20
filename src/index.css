@@ -13,11 +13,25 @@ code {
     monospace;
 }
 
+.game-board {
+  margin-bottom: 50px;
+}
+
 .tile {
   width: 64px;
   height: 100%;
 }
 
 .row {
+  height: 64px;
+}
+
+.history-state-icon {
+  width: 48px;
+  height: 48px;
+}
+
+.history-state-icon-selected {
+  width: 64px;
   height: 64px;
 }
